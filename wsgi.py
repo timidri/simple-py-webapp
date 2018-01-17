@@ -1,52 +1,54 @@
-from templite import Templite
-
-def get_header(env):
-    t = Templite(header_template)
+def get_head(env={}):
     title = "Default Page Title"
-    return t.render(title=title)
+    return head_template.format(title)
 
-def get_body(env):
-    t = Templite(env_dump_template)
-    return t.render(environ=env)
+def get_body(env={}):
+    table_rows = [
+        '<tr><td>%s</td><td>%s</td></tr>' % (key, value) for key, value in sorted(env.items())
+    ]
+    table = '\n'.join(table_rows)
+    body = body_template.format(table)
 
-def construct_page(env):
-    header = get_header(env)
+    return body
+
+def construct_page(env={}):
+    head = get_head(env)
     body = get_body(env)
-    t = Templite(page_template)
-    return t.render(header=header, body=body)
+    page = page_template.format(head,body)
+    return page
 
 def application(env, start_response):
     start_response('200 OK', [('Content-Type', 'text/html')])
     txt = construct_page(env)
     return [txt]
 
-env_dump_template = """
-    <div>
-        <ul>
-    ${ for key in sorted(environ.items()) }$
-            <li>${ key }$</li>
-    ${ :end-for }$
-        </ul>
-    </div>
+head_template="""
+<title>{0}</title>
 """
 
-header_template = """
-    <title> ${ write(title) }$ </title>
+body_template="""
+<div>
+  <table>
+    {0}
+  </table>
+</div>
 """
 
-body_template = """
-<p>This is a test</p>
-"""
-
-page_template = """
+page_template="""
 <html>
-    <head>
-${write(header)}$
-    </head>
-    <body>
-${write(body)}$
-    </body>
+<head>
+{0}
+</head>
+<body>
+{1}
+</body>
 </html>
 """
 
-#print construct_page()
+env = {
+    "left": 1,
+    "right": 2,
+    "up": 3,
+    "down": 4
+}
+#print construct_page(env)
