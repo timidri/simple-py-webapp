@@ -27,6 +27,9 @@ head_template="""
   table {{
       border: 1px solid black;
   }}
+  td {{
+      border: 1px dotted gray;
+  }}
 </style>
 <title>{0}</title>
 """
