@@ -26,6 +26,7 @@ head_template="""
 <style type='text/css'>
   table {{
       border: 1px solid black;
+      border-collapse: collapse;
   }}
   td {{
       border: 1px dotted gray;
