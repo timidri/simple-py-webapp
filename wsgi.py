@@ -5,9 +5,8 @@ def get_head(env={}):
 def get_body(env={}):
     table_rows = []
     for (key, value) in sorted(env.items()):
-        line = '<tr{2}><td>{0}</td><td>{1}</td></tr>'.format(key, value, key == 'uwsgi.node'?' class="id"':''))
+        line = '<tr{2}><td>{0}</td><td>{1}</td></tr>'.format(key, value, ' class="id"' if key == 'uwsgi.node' else '')
         table_rows.append(line)
-    ]
     table = '\n'.join(table_rows)
     body = body_template.format(table)
 
@@ -60,3 +59,5 @@ page_template="""
 </body>
 </html>
 """
+
+#print get_body({'uwsgi.node': 'pang', 'something': 'else'})
