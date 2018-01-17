@@ -24,9 +24,9 @@ def application(env, start_response):
 
 head_template="""
 <style type='text/css'>
-  table {
+  table {{
       border: 1px solid black;
-  }
+  }}
 </style>
 <title>{0}</title>
 """
