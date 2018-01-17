@@ -3,8 +3,10 @@ def get_head(env={}):
     return head_template.format(title)
 
 def get_body(env={}):
-    table_rows = [
-        '<tr><td>%s</td><td>%s</td></tr>' % (key, value) for key, value in sorted(env.items())
+    table_rows = []
+    for (key, value) in sorted(env.items()):
+        line = '<tr{2}><td>{0}</td><td>{1}</td></tr>'.format(key, value, key == 'uwsgi.node'?' class="id"':''))
+        table_rows.append(line)
     ]
     table = '\n'.join(table_rows)
     body = body_template.format(table)
@@ -30,6 +32,11 @@ head_template="""
   }}
   td {{
       border: 1px dotted gray;
+  }}
+
+  .id {{
+      font-weight: bold;
+      color: red;
   }}
 </style>
 <title>{0}</title>
