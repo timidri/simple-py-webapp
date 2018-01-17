@@ -44,11 +44,3 @@ page_template="""
 </body>
 </html>
 """
-
-env = {
-    "left": 1,
-    "right": 2,
-    "up": 3,
-    "down": 4
-}
-#print construct_page(env)
