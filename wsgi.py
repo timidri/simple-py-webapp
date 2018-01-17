@@ -23,6 +23,11 @@ def application(env, start_response):
     return [txt]
 
 head_template="""
+<style type='text/css'>
+  table {
+      border: 1px solid black;
+  }
+</style>
 <title>{0}</title>
 """
 
