@@ -1,29 +1,34 @@
 from templite import Templite
 
-def application(environ, start_response):
-    start_response('200 OK', [('Content-Type', 'text/html')])
-    txt = get_text()
-    return [txt]
-
-def get_header():
+def get_header(env):
     t = Templite(header_template)
     title = "Default Page Title"
     return t.render(title=title)
 
-def get_body():
-    t = Templite(body_template)
-    return t.render()
+def get_body(env):
+    t = Templite(env_dump_template)
+    return t.render(environ=env)
 
-def construct_page():
-    header = get_header()
-    body = get_body()
+def construct_page(env):
+    header = get_header(env)
+    body = get_body(env)
     t = Templite(page_template)
     return t.render(header=header, body=body)
 
-def application(environ, start_response):
+def application(env, start_response):
     start_response('200 OK', [('Content-Type', 'text/html')])
-    txt = construct_page()
+    txt = construct_page(env)
     return [txt]
+
+env_dump_template = """
+    <div>
+        <ul>
+    ${ for key in sorted(environ.items()) }$
+            <li>${ key }$</li>
+    ${ :end-for }$
+        </ul>
+    </div>
+"""
 
 header_template = """
     <title> ${ write(title) }$ </title>
@@ -44,4 +49,4 @@ ${write(body)}$
 </html>
 """
 
-print construct_page()
+#print construct_page()
