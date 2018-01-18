@@ -1,3 +1,5 @@
+import os.path
+
 def get_head(env={}):
     title = "Default Page Title"
     return head_template.format(title)
@@ -19,10 +21,12 @@ def construct_page(env={}):
     return page
 
 def do_heartbeat(start_response):
-#    start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
-#    return ['Not Found']
-    start_response('200 OK', [('Content-Type', 'text/plain')])
-    return ["ok"]
+    if os.path.isfile('/tmp/heartbeat'):
+        start_response('200 OK', [('Content-Type', 'text/plain')])
+        return ["ok"]
+    else:
+        start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
+        return ['Not Found']
 
 def application(env, start_response):
     if env["REQUEST_URI"] == "/heartbeat":
