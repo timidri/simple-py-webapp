@@ -18,10 +18,19 @@ def construct_page(env={}):
     page = page_template.format(head,body)
     return page
 
+def do_heartbeat(start_response):
+#    start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
+#    return ['Not Found']
+    start_response('200 OK', [('Content-Type', 'text/plain')])
+    return ["ok"]
+
 def application(env, start_response):
-    start_response('200 OK', [('Content-Type', 'text/html')])
-    txt = construct_page(env)
-    return [txt]
+    if env["REQUEST_URI"] == "/heartbeat":
+        return do_heartbeat(start_response)
+    else:
+        start_response('200 OK', [('Content-Type', 'text/html')])
+        txt = construct_page(env)
+        return [txt]
 
 head_template="""
 <style type='text/css'>
