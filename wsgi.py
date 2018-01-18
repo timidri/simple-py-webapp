@@ -1,5 +1,7 @@
 import os.path
 
+page_title="Simple load balancer demo"
+
 def get_head(env={},title="Default title"):
     return head_template.format(title)
 
@@ -14,7 +16,8 @@ def get_body(env={}):
     return body
 
 def get_env_body(env={}):
-    body = body_template.format(env["uwsgi.node"])
+    node = env["uwsgi.node"]
+    body = body_template.format(node, page_title)
 
     return body
 
@@ -79,7 +82,7 @@ body_env_template="""
 
 body_template="""
 <div>
-  <div><h2>Simple load balancer demo</h2></div>
+  <div><h2>{1}</h2></div>
   <div><h3>Server: <span class="id">{0}</span></h3></div>
 </div>
 """
