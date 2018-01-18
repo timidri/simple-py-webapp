@@ -6,18 +6,18 @@ def get_head(env={},title="Default title"):
     return head_template.format(title)
 
 def get_body(env={}):
+    node = env["uwsgi.node"]
+    body = body_template.format(node, page_title)
+
+    return body
+
+def get_env_body(env={}):
     table_rows = []
     for (key, value) in sorted(env.items()):
         line = '<tr{2}><td>{0}</td><td>{1}</td></tr>'.format(key, value, ' class="id"' if key == 'uwsgi.node' else '')
         table_rows.append(line)
     table = '\n'.join(table_rows)
-    body = body_template.format(table)
-
-    return body
-
-def get_env_body(env={}):
-    node = env["uwsgi.node"]
-    body = body_template.format(node, page_title)
+    body = body_env_template.format(table)
 
     return body
 
@@ -52,7 +52,6 @@ def application(env, start_response):
         start_response('200 OK', [('Content-Type', 'text/html')])
         txt = construct_page(env)
         return [txt]
-
 
 head_template="""
 <style type='text/css'>
@@ -98,4 +97,8 @@ page_template="""
 </html>
 """
 
+
+
+test_env={"uwsgi.node":"node"}
+print get_env_body(test_env)
 #print get_body({'uwsgi.node': 'pang', 'something': 'else'})
