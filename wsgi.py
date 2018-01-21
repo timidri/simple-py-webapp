@@ -23,7 +23,7 @@ def get_head(env={},title="Default title"):
     return head_template.format(title)
 
 def get_body(env={}):
-    node = env["uwsgi.node"]
+    node = get_server_name(env)
     body = body_template.format(node, page_title)
 
     return body
@@ -72,10 +72,20 @@ def application(env, start_response):
 
 head_template="""
 <style type='text/css'>
+  body {{
+      padding: 0;
+      margin: 0;
+  }}
+  
+  div {{
+      padding: 2em;
+  }}
+
   table {{
       border: 1px solid black;
       border-collapse: collapse;
   }}
+
   td {{
       border: 1px dotted gray;
   }}
@@ -83,6 +93,15 @@ head_template="""
   .id {{
       font-weight: bold;
       color: red;
+  }}
+
+  #header {{
+      height: 4em;
+      background-color: #b6b7ba;
+  }}
+
+  #body {{
+      background-color: #dcdde2;
   }}
 </style>
 <title>{0}</title>
