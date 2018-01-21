@@ -1,6 +1,23 @@
 import os.path
+import re
 
-page_title="Simple load balancer demo"
+page_title="Welcome to the Simple Load Balancer demo"
+server_name = ""
+
+def get_server_name(env):
+    global server_name
+
+    if not server_name:
+        server_name = "Undetermined"
+        name = env["uwsgi.node"]
+        if name:
+            pattern = re.compile("^\\s*(ip.*?)\\.")
+            node = env["uwsgi.node"]
+            match = pattern.search(node)
+            if match:
+                server_name = match.group(1)
+
+    return server_name 
 
 def get_head(env={},title="Default title"):
     return head_template.format(title)
@@ -80,9 +97,11 @@ body_env_template="""
 """
 
 body_template="""
-<div>
-  <div><h2>{1}</h2></div>
-  <div><h3>Server: <span class="id">{0}</span></h3></div>
+<div id="header">
+  <h2>{1}</h2>
+</div>
+<div id="body">
+  <h3>Server: <span class="id">{0}</span></h3>
 </div>
 """
 
@@ -99,6 +118,6 @@ page_template="""
 
 
 
-test_env={"uwsgi.node":"node"}
-print get_env_body(test_env)
+#test_env={"uwsgi.node":"ip-10-0-25-81.eu-central-1.compute.internal"}
+#print get_server_name(test_env)
 #print get_body({'uwsgi.node': 'pang', 'something': 'else'})
