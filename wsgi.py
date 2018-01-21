@@ -73,8 +73,9 @@ def application(env, start_response):
 head_template="""
 <style type='text/css'>
   body {{
-      padding: 0;
+      background-color: #dcdde2;
       margin: 0;
+      padding: 0;
   }}
   
   div {{
@@ -91,17 +92,16 @@ head_template="""
   }}
 
   .id {{
-      font-weight: bold;
       color: red;
+      font-weight: bold;
   }}
 
   #header {{
-      height: 4em;
       background-color: #b6b7ba;
+      height: 4em;
   }}
 
   #body {{
-      background-color: #dcdde2;
   }}
 </style>
 <title>{0}</title>
@@ -117,10 +117,10 @@ body_env_template="""
 
 body_template="""
 <div id="header">
-  <h2>{1}</h2>
+  <h1>{1}</h1>
 </div>
 <div id="body">
-  <h3>Server: <span class="id">{0}</span></h3>
+  <h2>Server: <span class="id">{0}</span></h2>
 </div>
 """
 
