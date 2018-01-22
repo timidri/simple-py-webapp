@@ -1,7 +1,7 @@
 import os.path
 import re
 
-page_title="Welcome to the Simple Load Balancer demo"
+page_title="Welcome from Frankfurt!!"
 server_name = ""
 
 def get_server_name(env):
