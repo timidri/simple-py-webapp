@@ -98,6 +98,7 @@ head_template="""
 
   .pixel {{
       float: right;
+      display: none;
   }}
 
   #header {{
