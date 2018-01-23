@@ -96,6 +96,10 @@ head_template="""
       font-weight: bold;
   }}
 
+  .pixel {{
+      float: right;
+  }}
+
   #header {{
       background-color: #b6b7ba;
       height: 4em;
@@ -118,6 +122,7 @@ body_env_template="""
 body_template="""
 <div id="header">
   <h1>{1}</h1>
+  <div class="pixel"><img src="pixel.png"></div>
 </div>
 <div id="body">
   <h2>Server: <span class="id">{0}</span></h2>
