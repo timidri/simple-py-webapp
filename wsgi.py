@@ -1,7 +1,7 @@
 import os.path
 import re
 
-page_title="Simple Web App Deployment Demo from Frankfurt"
+page_title="Simple Web App Deployment Demo"
 server_name = ""
 
 def get_server_name(env):
