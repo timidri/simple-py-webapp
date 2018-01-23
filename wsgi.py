@@ -1,7 +1,7 @@
 import os.path
 import re
 
-page_title="Welcome to the Simple LB Demo (first)"
+page_title="Welcome to the Simple LB Demo (second)"
 server_name = ""
 
 def get_server_name(env):
