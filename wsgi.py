@@ -117,10 +117,10 @@ body_env_template="""
 
 body_template="""
 <div id="header">
-  <h1>{1}</h1>
+  <h2>{1}</h2>
 </div>
 <div id="body">
-  <h2>Server: <span class="id">{0}</span></h2>
+  <h1>Server: <span class="id">{0}</span></h1>
 </div>
 """
 
