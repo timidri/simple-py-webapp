@@ -2,8 +2,9 @@ import os.path
 import re
 
 page_title="Simple Web App Deployment Demo"
-server_name = ""
 
+# Determine a unique name for the current node member to display
+server_name = ""
 def get_server_name(env):
     global server_name
 
@@ -58,6 +59,7 @@ def do_heartbeat(start_response):
         start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
         return ['Not Found']
 
+# Single Point of Entry for all calls. Currently, only Heartbeat, Environment and everything else are supported.
 def application(env, start_response):
     if env["REQUEST_URI"] == "/heartbeat":
         return do_heartbeat(start_response)
