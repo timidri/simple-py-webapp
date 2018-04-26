@@ -1,7 +1,7 @@
 import os.path
 import re
 
-page_title="Plans Demo - DevHops London"
+page_title="Plans Demo - DevHops London Free Beer All Night"
 
 # Determine a unique name for the current node member to display
 server_name = ""
